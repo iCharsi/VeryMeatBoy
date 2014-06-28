@@ -109,7 +109,7 @@ public class GamePanel extends JPanel
                     position.x < 0 || position.x >= level.getWidth() || spikesTouched()) {
                     gameState = GameState.DEAD;
                 }
-                if (midAir && ((!keys[KeyEvent.VK_SPACE] && !keys[KeyEvent.VK_X]) || jumpTrigger > 0) && speed.y < 0) {
+                if (midAir && ((!keys[KeyEvent.VK_S] && !keys[KeyEvent.VK_X]) || jumpTrigger > 0) && speed.y < 0) {
                     speed.y += Player.Y_ACCELERATION_JUMP_UNPRESSED;
                     if (speed.y > Player.Y_ACCELERATION) {
                         speed.y = Player.Y_ACCELERATION;
@@ -276,14 +276,14 @@ public class GamePanel extends JPanel
                             double timeX; //relative time it takes to reach the cell adjacent by X
                             double timeY; //relative time it takes to reach the cell adjacent by Y
                             if (xChange > 0.0) {
-                                timeX = (1.0 - offset.x) / xChange;
+                                timeX = (1.0 - Player.SIZE - offset.x) / xChange;
                             } else {
-                                timeX = (offset.x - 0.0) / (-xChange);
+                                timeX = (offset.x - Player.SIZE - 0.0) / (-xChange);
                             }
                             if (yChange > 0.0) {
-                                timeY = (1.0 - offset.y) / yChange;
+                                timeY = (1.0 - Player.SIZE - offset.y) / yChange;
                             } else {
-                                timeY = (offset.y - 0.0) / (-yChange);
+                                timeY = (offset.y - Player.SIZE - 0.0) / (-yChange);
                             }
                             if (timeX > timeY) { //reaching the cell adjacent by Y first
                                 if (xChange > 0.0) {
@@ -532,7 +532,7 @@ public class GamePanel extends JPanel
         boolean flag = true;
 
         if (gameState == GameState.GAME) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE && !keys[KeyEvent.VK_SPACE]) {
+            if (e.getKeyCode() == KeyEvent.VK_S && !keys[KeyEvent.VK_S]) {
                 jumpTrigger = 8;
             }
             if (e.getKeyCode() == KeyEvent.VK_X && !keys[KeyEvent.VK_X]) {
@@ -717,7 +717,7 @@ public class GamePanel extends JPanel
     private int editorSpikesFlag = 0; //0 - do nothing
                                       //1 - change walls into spikes
                                       //2 - change spikes into walls
-    private byte editorSelectionType = 0; //0 - potral
+    private byte editorSelectionType = 0; //0 - portal
                                           //1 - saw
     private int editorSelectionIndex = -1; //-1 - nothing is selected;
     private int editorPortalIndex = -1;
